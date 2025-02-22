@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Sasini Akka!</title>
+    <style>
+        body {
+            text-align: center;
+            background: linear-gradient(45deg, #ff9a9e, #fad0c4);
+            font-family: 'Arial', sans-serif;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            margin: 0;
+            position: relative;
+        }
+
+        button {
+            background-color: #ff4081;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            font-size: 18px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-bottom: 20px;
+        }
+
+        button:hover {
+            background-color: #d81b60;
+        }
+
+        .countdown {
+            font-size: 24px;
+            margin-top: 20px;
+            color: #d81b60;
+        }
+
+        /* Image Styling */
+        .image-container {
+            display: none; /* Initially hidden */
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            flex-wrap: nowrap;
+        }
+
+        .image-container img {
+            width: 100%;
+            max-width: 200px;
+            margin: 0 10px;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Birthday Wish Styling */
+        .birthday-wish {
+            display: none;
+            font-size: 24px;
+            margin-top: 20px;
+            font-weight: bold;
+            color: #ff4081;
+        }
+
+        /* Sorry for Late Message */
+        .sorry-message {
+            display: none;
+            font-size: 24px;
+            color: #ff4081;
+            margin-top: 30px;
+        }
+
+        /* Final Message */
+        .final-message {
+            display: none;
+            font-size: 28px;
+            color: #ff4081;
+            margin-top: 40px;
+            font-weight: bold;
+        }
+
+        /* Animated Emojis in Background */
+        .emoji {
+            position: absolute;
+            font-size: 30px;
+            animation: float 4s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(-100px); }
+            100% { transform: translateY(100vh); }
+        }
+
+        .emoji-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none; /* Emojis won't interfere with interactions */
+            z-index: -1; /* Behind all other content */
+        }
+
+    </style>
+</head>
+<body>
+    <button id="surprise-button" onclick="startCountdown()">Hello Sasini Akka, Be Surprised!</button>
+
+    <div class="countdown" id="countdown-timer"></div>
+
+    <div class="image-container" id="image-container">
+        <img src="images/465927306_10235225876052357_2459992016009723448_n.jpg" alt="Image 1">
+        <img src="images/473166043_455106407664606_5459259117847668830_n.jpg" alt="Image 2">
+        <img src="images/473544457_457080454133868_4861577558800809564_n.jpg" alt="Image 3">
+        <img src="images/476612055_476027945572452_4019351337702757175_n.jpg" alt="Image 4">
+    </div>
+
+    <div class="countdown" id="please-wait-timer" style="display:none;"></div>
+
+    <div class="birthday-wish" id="birthday-wish">
+        <h2>🎂 Happy Birthday Sasini Akka! 🎈</h2>
+        <p>Wishing you love, joy, and happiness always! 💖</p>
+    </div>
+
+    <div class="sorry-message" id="sorry-message">
+        <p>Sorry for the late wish! 😅</p>
+    </div>
+
+    <div class="final-message" id="final-message">
+        <p>හරි හරි ගිහින් පාඩම් කරමු දැන්</p>
+    </div>
+
+    <!-- Emoji container for background animation -->
+    <div class="emoji-container" id="emoji-container"></div>
+
+    <script>
+        let countdownTime = 5; // Countdown time in seconds
+        const countdownTimer = document.getElementById('countdown-timer');
+        const pleaseWaitTimer = document.getElementById('please-wait-timer');
+        const imageContainer = document.getElementById('image-container');
+        const birthdayWish = document.getElementById('birthday-wish');
+        const sorryMessage = document.getElementById('sorry-message');
+        const finalMessage = document.getElementById('final-message');
+        const emojiContainer = document.getElementById('emoji-container');
+
+        // Function to generate random emojis in the background
+        function generateBackgroundEmojis() {
+            const emojis = ["🎉", "🎂", "🎈", "💖", "🥳"];
+            for (let i = 0; i < 10; i++) {
+                const emoji = document.createElement('div');
+                emoji.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+                emoji.className = 'emoji';
+                emoji.style.left = Math.random() * 100 + 'vw';
+                emoji.style.fontSize = Math.random() * 40 + 30 + 'px';
+                emoji.style.animationDuration = Math.random() * 2 + 3 + 's';
+                emojiContainer.appendChild(emoji);
+            }
+        }
+
+        function startCountdown() {
+            // Hide the button and show the initial countdown
+            document.getElementById("surprise-button").style.display = "none";
+            countdownTimer.style.display = "block";
+            countdownTimer.textContent = `Starting in ${countdownTime} seconds...`;
+
+            const countdownInterval = setInterval(function() {
+                countdownTime--;
+                countdownTimer.textContent = `Starting in ${countdownTime} seconds...`;
+
+                if (countdownTime <= 0) {
+                    clearInterval(countdownInterval);
+                    showImages();
+                }
+            }, 1000);
+        }
+
+        function showImages() {
+            // Hide initial countdown and show the images container
+            countdownTimer.style.display = "none";
+            imageContainer.style.display = "flex"; // Display the images
+
+            // Start the "Please wait" countdown
+            startPleaseWaitCountdown();
+        }
+
+        function startPleaseWaitCountdown() {
+            let waitTime = 5; // Countdown time for "Please wait" message
+            pleaseWaitTimer.style.display = "block";
+            pleaseWaitTimer.textContent = `Please wait... ${waitTime} seconds`;
+
+            const waitInterval = setInterval(function() {
+                waitTime--;
+                pleaseWaitTimer.textContent = `Please wait... ${waitTime} seconds`;
+
+                if (waitTime <= 0) {
+                    clearInterval(waitInterval);
+                    showBirthdayWish();
+                }
+            }, 1000);
+        }
+
+        function showBirthdayWish() {
+            // Hide the "Please wait" countdown and show the birthday wish
+            pleaseWaitTimer.style.display = "none";
+            birthdayWish.style.display = "block";  // Show birthday wish after wait
+
+            // Start the "Sorry for Late" message countdown
+            startSorryMessageCountdown();
+        }
+
+        function startSorryMessageCountdown() {
+            let sorryCountdownTime = 5; // Countdown time for "Sorry for the late wish"
+            sorryMessage.style.display = "block";
+            sorryMessage.textContent = `Sorry for the late wish! 😅`;
+
+            const sorryInterval = setInterval(function() {
+                sorryCountdownTime--;
+                sorryMessage.textContent = `Sorry for the late wish! 😅 (Wait... ${sorryCountdownTime}s)`;
+
+                if (sorryCountdownTime <= 0) {
+                    clearInterval(sorryInterval);
+                    sorryMessage.style.display = "none"; // Hide the countdown
+                    showFinalMessage(); // Show the final message
+                }
+            }, 1000);
+        }
+
+        function showFinalMessage() {
+            // Hide everything and show the final message in Sinhala
+            finalMessage.style.display = "block";
+            setTimeout(function() {
+                // Hide all after the final message
+                document.body.style.background = "#f0f0f0"; // Optional: Add a neutral background after final message
+                finalMessage.style.display = "none"; // Hide final message after a few seconds
+            }, 5000); // Show final message for 5 seconds
+        }
+
+        // Start generating background emojis
+        generateBackgroundEmojis();
+    </script>
+</body>
+</html>
