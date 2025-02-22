@@ -48,10 +48,12 @@
             display: flex;
             justify-content: center;
             flex-wrap: nowrap;
+            overflow-x: scroll;
+            padding: 0 20px;
         }
 
         .image-container img {
-            width: 100%;
+            width: 80%;
             max-width: 200px;
             margin: 0 10px;
             border-radius: 15px;
@@ -104,10 +106,51 @@
             z-index: -1; /* Behind all other content */
         }
 
+        /* Mobile-friendly adjustments */
+        @media (max-width: 768px) {
+            button {
+                padding: 12px 25px;
+                font-size: 16px;
+            }
+
+            .countdown {
+                font-size: 18px;
+            }
+
+            .image-container img {
+                width: 70%;
+                max-width: 150px;
+            }
+
+            .birthday-wish, .sorry-message, .final-message {
+                font-size: 20px;
+            }
+        }
+
+        /* Further responsiveness for very small screens */
+        @media (max-width: 480px) {
+            button {
+                padding: 10px 20px;
+                font-size: 14px;
+            }
+
+            .countdown {
+                font-size: 16px;
+            }
+
+            .image-container img {
+                width: 60%;
+                max-width: 120px;
+            }
+
+            .birthday-wish, .sorry-message, .final-message {
+                font-size: 18px;
+            }
+        }
     </style>
 </head>
 <body>
-    <button id="surprise-button" onclick="startCountdown()">Hello Sasini Akka, Be Surprised!</button>
+    <button id="surprise-button" onclick="startCountdown()">Hello Sasini Akka, Be Surprised! (Click me)</button>
 
     <div class="countdown" id="countdown-timer"></div>
 
